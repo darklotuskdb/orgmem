@@ -1,5 +1,5 @@
 # Extract Github Members Of Target Organization
-
+This tool helps to extract members information of a particular organization from Github for various purposes like GitHub reconnaissance, etc. 
 
 ## Usage
 
