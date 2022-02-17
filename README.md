@@ -1,5 +1,5 @@
-# ./orgmem 
-Extract Github Members Of Target Organization
+# Extract Github Members Of Target Organization
+
 
 ## Usage
 
