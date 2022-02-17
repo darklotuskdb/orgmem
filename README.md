@@ -6,8 +6,13 @@ Extract Github Members Of Target Organization
 Linux
 
 ```
-git clone https://github.com/darklotuskdb/sd-goo.git && cd orgmem && chmod +x *.sh 
+git clone https://github.com/darklotuskdb/orgmem.git && cd orgmem && chmod +x *.sh 
+```
+```
 ./orgmem -o <org_username>
+-o: organization username according to github
+
+Example: ./orgmem.sh -o apple
 ```
 
 ### Screenshot
