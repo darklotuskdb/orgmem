@@ -15,7 +15,7 @@ echo -e "\e[31m\t\tBy @DarkLotusKDB <3\e[0m"
 
 Prt_usage(){
 echo
-echo "Usage: ./orgmem.sh -o <org name>"
+echo "Usage: ./orgmem.sh -o <org_username>"
 echo "-o: organization username according to github"
 echo
 echo "Example: ./orgmem.sh -o apple"
