@@ -38,11 +38,12 @@ do
 		break
 	else
 		echo -e "\n\e[33m[+] Members Found On People Page No: $i\e[0m"
-		echo "$Resp" | grep -Eo 'href="[^\"]+"' | grep -i -v "github\|login\|signup\|\/features\|http\|\/trending\|\/topics\|\/team\|\/sponsors\|#\|\/customer-s\|\/readme\|\/pricing\|\/mobile\|\.xml\|\.json\|\/events\|\/explore\|\/collections\|\/enterprise\|marketplace\|\/orgs\/\|\/$org" | sort -u | sed 's/href="\//user:/g' | sed 's/"/ /g' | tr -d '\n' | tee Output/$org/$org-$i-github-users.txt
+		echo "$Resp" | grep -Eo 'href="[^\"]+"' | grep -i -v "github\|login\|signup\|\/features\|http\|\/trending\|\/topics\|\/team\|\/sponsors\|#\|\/customer-s\|\/readme\|\/pricing\|\/mobile\|\.xml\|\.json\|\/events\|\/explore\|\/collections\|\/enterprise\|marketplace\|\/orgs\/\|\/$org" | sort -u | sed 's/href="\//user:/g' | sed 's/"/ /g' | tr -d '\n' | tee Output/$org/$i-user-dork.txt
+		cat Output/$org/$i-user-dork.txt | sed 's/user://g' | tr " " "\n" | grep . >> Output/$org/All-$org-users.txt
 		echo ""
 	fi
 
-x=$(cat Output/$org/$org-$i-github-users.txt | wc -w)
+x=$(cat Output/$org/$i-user-dork.txt | wc -w)
 c=$(($x + $c))
 
 done
