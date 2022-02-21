@@ -49,6 +49,7 @@ c=$(($x + $c))
 done
 
 echo -e "\n\e[32m[+] Total Number Of Members: \e[0m\e[31m$c\e[0m"
+echo -e "\n\e[32m[+] Output: \e[0m\e[33mOutput/$org/All-$org-users.txt\e[0m"
 
 }
 
