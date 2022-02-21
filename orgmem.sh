@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pge=500
 c=0
 
 banner(){
@@ -17,6 +18,7 @@ Prt_usage(){
 echo
 echo "Usage: ./orgmem.sh -o <org_username>"
 echo "-o: organization username according to github"
+echo "Note: Default page limit is up to 500 pages"
 echo
 echo "Example: ./orgmem.sh -o apple"
 }
@@ -28,7 +30,7 @@ mkdir -p Output/$org
 Main_Logic(){
 echo -e "\n\e[32m[+] Feteching Public Members Of $org From Github\e[0m"
 
-for (( i=1; i<=20; i++))
+for (( i=1; i<=$pge; i++))
 do
 	Resp=$(curl -ksi1 "https://github.com/orgs/$org/people?page=$i")
 	Err=$(echo "This organization has no public members")
@@ -38,18 +40,14 @@ do
 		break
 	else
 		echo -e "\n\e[33m[+] Members Found On People Page No: $i\e[0m"
-		echo "$Resp" | grep -Eo 'href="[^\"]+"' | grep -i -v "github\|login\|signup\|\/features\|http\|\/trending\|\/topics\|\/team\|\/sponsors\|#\|\/customer-s\|\/readme\|\/pricing\|\/mobile\|\.xml\|\.json\|\/events\|\/explore\|\/collections\|\/enterprise\|marketplace\|\/orgs\/\|\/$org" | sort -u | sed 's/href="\//user:/g' | sed 's/"/ /g' | tr -d '\n' | tee Output/$org/$i-user-dork.txt
-		cat Output/$org/$i-user-dork.txt | sed 's/user://g' | tr " " "\n" | grep . >> Output/$org/All-$org-users.txt
-		echo ""
-	fi
-
-x=$(cat Output/$org/$i-user-dork.txt | wc -w)
-c=$(($x + $c))
-
+		echo "$Resp" | grep -Eo 'href="[^\"]+"' | sed 's/href="\///g' | sed 's/"//g' | grep -v "login\|signup\|features\|http\|^trending$\|^topics$\|^team$\|^sponsors$\|#\|customer-s\|^readme$\|^pricing$\|^mobile$\|\.xml\|\.json\|^events$\|^explore$\|^collections$\|^enterprise$\|^marketplace$\|orgs\/" | grep -vi "^$org$\|^github$" | sort -u | tee Output/$org/page-$i-users.txt
+		x=$(cat Output/$org/page-$i-users.txt | wc -w)
+		c=$(($x + $c))
+fi 
 done
 
 echo -e "\n\e[32m[+] Total Number Of Members: \e[0m\e[31m$c\e[0m"
-echo -e "\n\e[32m[+] Output: \e[0m\e[33mOutput/$org/All-$org-users.txt\e[0m"
+echo -e "\n\e[32m[+] Output: \e[0m\e[33mcat Output/$org/*.txt\e[0m"
 
 }
 
